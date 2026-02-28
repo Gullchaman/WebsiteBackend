@@ -1,0 +1,54 @@
+{% extends "api/base.html" %}
+
+{% block title %}Home | Portfolio{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Hi, I am a Full Stack Developer</h1>
+    <p>
+        I build modern, reliable web applications focused on performance, clean architecture,
+        and user-friendly experiences.
+    </p>
+</section>
+
+<section class="section">
+    <h2>Featured Projects</h2>
+    <div class="grid projects-grid">
+        {% for project in projects %}
+            <article class="card">
+                <h3>{{ project.title }}</h3>
+                <p class="meta">{{ project.role }} | {{ project.tech_stack }}</p>
+                <p>{{ project.description|truncatechars:160 }}</p>
+                {% if project.github_link %}
+                    <a class="btn" href="{{ project.github_link }}" target="_blank" rel="noreferrer">GitHub</a>
+                {% endif %}
+                {% if project.live_link %}
+                    <a class="btn btn-outline" href="{{ project.live_link }}" target="_blank" rel="noreferrer">Live Demo</a>
+                {% endif %}
+            </article>
+        {% empty %}
+            <p>No projects available yet. Add projects from admin panel.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <h2>Expertise & Skills</h2>
+    <div class="grid skills-grid">
+        {% for category in expertise_categories %}
+            <article class="card">
+                <h3>{{ category.name }}</h3>
+                <ul>
+                    {% for skill in category.skills.all %}
+                        <li>{{ skill.name }}</li>
+                    {% empty %}
+                        <li>No skills added.</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% empty %}
+            <p>No expertise data available yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

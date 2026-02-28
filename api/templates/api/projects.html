@@ -1,0 +1,34 @@
+{% extends "api/base.html" %}
+
+{% block title %}Projects | Portfolio{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Projects Showcase</h1>
+    <p>A collection of work across frontend, backend, and full stack products.</p>
+</section>
+
+<section class="section">
+    <div class="grid projects-grid">
+        {% for project in projects %}
+            <article class="card">
+                <h3>{{ project.title }}</h3>
+                <p class="meta">{{ project.role }} | {{ project.tech_stack }}</p>
+                <p>{{ project.description }}</p>
+                {% if project.key_features %}
+                    <h4>Key Features</h4>
+                    <pre style="white-space: pre-wrap; font-family: inherit; margin: 0 0 14px;">{{ project.key_features }}</pre>
+                {% endif %}
+                {% if project.github_link %}
+                    <a class="btn" href="{{ project.github_link }}" target="_blank" rel="noreferrer">GitHub</a>
+                {% endif %}
+                {% if project.live_link %}
+                    <a class="btn btn-outline" href="{{ project.live_link }}" target="_blank" rel="noreferrer">Live Demo</a>
+                {% endif %}
+            </article>
+        {% empty %}
+            <p>No projects available yet. Add them from admin panel.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
